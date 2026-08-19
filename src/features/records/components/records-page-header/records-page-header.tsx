@@ -13,10 +13,10 @@ export function RecordsPageHeader({ totalRecords }: RecordsPageHeaderProps) {
         </div>
 
         <p className="text-sm text-text-muted">
-          در این بخش می‌توانید رکوردهای سیستم را مشاهده و مدیریت کنید.
+          در این بخش می‌ توانید رکوردها را مشاهده و مدیریت کنید.
         </p>
       </div>
-      <div className="flex items-center gap-1 rounded-2xl px-3 py-1 text-lg font-medium bg-surface shadow-2xl">
+      <div className="flex items-center gap-1 rounded-2xl px-3 py-1 text-lg font-medium bg-surface shadow-sm">
         <span className="text-3xl font-bold">
           {totalRecords.toLocaleString("fa-IR")}
         </span>
