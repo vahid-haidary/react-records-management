@@ -1,9 +1,5 @@
 function App() {
-  return (
-    <div className="flex min-h-screen items-center justify-center">
-      <h1 className="text-3xl font-bold">Records Management</h1>
-    </div>
-  );
+  return <div>Records Management</div>;
 }
 
 export default App;
