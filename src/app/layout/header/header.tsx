@@ -1,4 +1,5 @@
 import { Button } from "@/shared/ui/button";
+import { CiCirclePlus } from "react-icons/ci";
 
 interface HeaderProps {
   onCreateRecord: () => void;
@@ -6,19 +7,28 @@ interface HeaderProps {
 
 export function Header({ onCreateRecord }: HeaderProps) {
   return (
-    <header className="border-b border-gray-200 bg-white">
+    <header className="border-b border-border bg-surface">
       <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-600 text-sm font-bold text-white">
-            پ
+        <div className="flex min-w-0 items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-sm font-bold tracking-tight text-white shadow-lg">
+            BA
           </div>
 
-          <span className="text-base font-bold text-gray-900 sm:text-lg">
-            پنل مدیریت
-          </span>
+          <div className="min-w-0">
+            <p className="truncate text-base font-bold text-text sm:text-lg">
+              پنل مدیریت
+            </p>
+          </div>
         </div>
 
-        <Button onClick={onCreateRecord}>ایجاد رکورد جدید</Button>
+        <Button
+          className="flex shrink-0 items-center gap-2"
+          onClick={onCreateRecord}
+        >
+          <span className="hidden sm:inline">ایجاد رکورد جدید</span>
+          <span className="sm:hidden">ایجاد رکورد</span>
+          <CiCirclePlus size={22} />
+        </Button>
       </div>
     </header>
   );

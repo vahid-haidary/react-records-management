@@ -1,4 +1,5 @@
 import { AppLayout } from "./app/layout/app-layout";
+import { RecordsPage } from "./pages/records/records-page";
 
 function App() {
   const handleCreateRecord = () => {
@@ -7,7 +8,7 @@ function App() {
 
   return (
     <AppLayout onCreateRecord={handleCreateRecord}>
-      <div className="mx-auto max-w-7xl px-4 py-8">محتویات صفحه</div>
+      <RecordsPage />
     </AppLayout>
   );
 }
