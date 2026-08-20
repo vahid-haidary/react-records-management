@@ -1,5 +1,4 @@
-// hooks/use-pagination.ts
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 interface UsePaginationOptions {
   totalItems: number;
@@ -30,10 +29,13 @@ export function usePagination({
     setCurrentPage(1);
   }
 
-  function paginate<T>(items: T[]): T[] {
-    const start = (currentPage - 1) * pageSize;
-    return items.slice(start, start + pageSize);
-  }
+  const paginate = useCallback(
+    <T>(items: T[]): T[] => {
+      const start = (currentPage - 1) * pageSize;
+      return items.slice(start, start + pageSize);
+    },
+    [currentPage, pageSize],
+  );
 
   return {
     currentPage,

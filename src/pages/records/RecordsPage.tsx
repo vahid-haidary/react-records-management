@@ -10,13 +10,13 @@ import type { RecordModel } from "@/features/records/api/model/record.model";
 import { useRecords } from "@/features/records/hooks/use-records";
 import { usePagination } from "@/features/records/hooks/use-pagination";
 import { useRecordsFilters } from "@/features/records/hooks/use-records-filters";
-import { useRecordMutations } from "@/features/records/hooks/use-record-mutations";
 
 import type { RecordFormSchema } from "@/features/records/schemas/record-form.schema";
 
 import { Button } from "@/shared/ui/button";
 import { ConfirmDialog } from "@/shared/ui/confirm-dialog";
 import { RecordsTableSkeleton } from "@/features/records/ui/RecordsTableSkeleton";
+import { useRecordMutations } from "@/features/records/hooks/use-record-mutations";
 
 interface RecordsPageProps {
   isCreateModalOpen: boolean;
@@ -58,7 +58,7 @@ export function RecordsPage({
 
   const paginatedRecords = useMemo(
     () => paginate(filteredRecords),
-    [filteredRecords, currentPage, pageSize],
+    [filteredRecords, paginate],
   );
 
   const { createRecord, editRecord, deleteRecord } = useRecordMutations();
@@ -134,7 +134,7 @@ export function RecordsPage({
       ) : filteredRecords.length === 0 ? (
         <div className="rounded-xl border border-border bg-surface p-8 text-center">
           <p className="mb-4 text-sm text-text-muted">
-            رکوردی مطابق فیلترهای انتخاب‌شده پیدا نشد.
+            برای شما رکوردی مطابق فیلترهای انتخاب‌ شده پیدا نشد.
           </p>
         </div>
       ) : (

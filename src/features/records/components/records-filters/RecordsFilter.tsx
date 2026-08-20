@@ -48,7 +48,7 @@ export function RecordsFilters({
               value: option.key,
               label: option.label,
             }))}
-            placeholder="همه وضعیت‌ها"
+            placeholder="همه وضعیت‌ ها"
           />
         </div>
 

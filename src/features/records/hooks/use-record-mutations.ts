@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { recordsQueryKey } from "./use-records";
+import { recordsQueryKey, type RecordsQueryData } from "./use-records";
 import { RecordsStorage } from "../api/storage/records.storage";
 import type { RecordModel } from "../api/model/record.model";
 import type { RecordFormSchema } from "../schemas/record-form.schema";
@@ -9,8 +9,13 @@ import type { RecordFormSchema } from "../schemas/record-form.schema";
 export function useRecordMutations() {
   const queryClient = useQueryClient();
 
-  function invalidate() {
-    queryClient.invalidateQueries({ queryKey: recordsQueryKey });
+  function updateRecordsCache(
+    updater: (records: RecordModel[]) => RecordModel[],
+  ) {
+    queryClient.setQueryData<RecordsQueryData>(recordsQueryKey, (old) => {
+      if (!old) return old;
+      return { ...old, records: updater(old.records) };
+    });
   }
 
   function createRecord(values: RecordFormSchema, statusLabel: string) {
@@ -34,7 +39,8 @@ export function useRecordMutations() {
       };
 
       RecordsStorage.addCreated(record);
-      invalidate();
+
+      updateRecordsCache((records) => [record, ...records]);
 
       toast.success("رکورد با موفقیت ایجاد شد");
     } catch {
@@ -48,7 +54,7 @@ export function useRecordMutations() {
     statusLabel: string,
   ) {
     try {
-      RecordsStorage.addEdited(id, {
+      const patch = {
         title: values.title.trim(),
         description: values.description?.trim() ?? "",
         status: {
@@ -60,9 +66,15 @@ export function useRecordMutations() {
           alt: values.imageAlt ?? "",
         },
         updatedAt: new Date().toISOString(),
-      });
+      };
 
-      invalidate();
+      RecordsStorage.addEdited(id, patch);
+
+      updateRecordsCache((records) =>
+        records.map((record) =>
+          record.id === id ? { ...record, ...patch } : record,
+        ),
+      );
 
       toast.success("رکورد با موفقیت ویرایش شد");
     } catch {
@@ -73,7 +85,10 @@ export function useRecordMutations() {
   function deleteRecord(id: number) {
     try {
       RecordsStorage.addDeleted(id);
-      invalidate();
+
+      updateRecordsCache((records) =>
+        records.filter((record) => record.id !== id),
+      );
 
       toast.success("رکورد با موفقیت حذف شد");
     } catch {

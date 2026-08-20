@@ -17,6 +17,10 @@ export function Modal({ open, title, children, onClose }: ModalProps) {
       return;
     }
 
+    const originalOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         onClose();
@@ -26,6 +30,7 @@ export function Modal({ open, title, children, onClose }: ModalProps) {
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
+      document.body.style.overflow = originalOverflow;
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [open, onClose]);
@@ -46,7 +51,7 @@ export function Modal({ open, title, children, onClose }: ModalProps) {
         }
       }}
     >
-      <div className="max-h-[90vh] hide-scrollbar w-full max-w-lg overflow-y-auto rounded-xl border border-border bg-surface p-5 shadow-xl sm:p-6">
+      <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl border border-border bg-surface p-5 shadow-xl hide-scrollbar sm:p-6">
         <div className="mb-5 flex items-center justify-between gap-4">
           <h2 id={titleId} className="text-lg font-semibold text-text">
             {title}
