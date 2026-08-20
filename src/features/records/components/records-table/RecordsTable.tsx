@@ -1,5 +1,6 @@
 import type { RecordItem } from "../../types/record.types";
-import { RecordsTableRow } from "./record-table-row";
+import { RecordsTableRow } from "./RecordTableRow";
+import { RecordMobileCard } from "./RecordMobileCard";
 
 interface RecordsTableProps {
   records: RecordItem[];
@@ -10,7 +11,7 @@ interface RecordsTableProps {
 export function RecordsTable({ records, onEdit, onDelete }: RecordsTableProps) {
   return (
     <div className="w-full">
-      {/* Desktop */}
+      {/* desktop size */}
       <div className="hidden overflow-hidden rounded-xl border border-border bg-surface md:block">
         <div className="overflow-x-auto">
           <table className="w-full min-w-245 border-collapse text-right">
@@ -60,10 +61,10 @@ export function RecordsTable({ records, onEdit, onDelete }: RecordsTableProps) {
         </div>
       </div>
 
-      {/* Mobile */}
+      {/* mobile card */}
       <div className="flex flex-col gap-3 md:hidden">
         {records.map((record) => (
-          <RecordsTableRow
+          <RecordMobileCard
             key={record.id}
             record={record}
             onEdit={onEdit}

@@ -1,5 +1,5 @@
 import { AppLayout } from "./app/layout/app-layout";
-import { RecordsPage } from "./pages/records/records-page";
+import { RecordsPage } from "./pages/records/RecordsPage";
 
 function App() {
   const handleCreateRecord = () => {

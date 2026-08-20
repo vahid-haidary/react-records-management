@@ -1,1 +1,1 @@
-export { RecordsFilters } from "./records-filters";
+export { RecordsFilters } from "./RecordsFilter";

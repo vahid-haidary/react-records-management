@@ -1,5 +1,6 @@
 import { RecordsFilters } from "@/features/records/components/records-filters";
 import { RecordsPageHeader } from "@/features/records/components/records-page-header";
+import { RecordsPagination } from "@/features/records/components/records-pagination";
 import { RecordsTable } from "@/features/records/components/records-table";
 import type { RecordItem } from "@/features/records/types/record.types";
 
@@ -15,7 +16,7 @@ const recordsMock: RecordItem[] = [
     },
     image: {
       url: "https://picsum.photos/seed/react-record-1/600/400",
-      alt: "تصویر مربوط به مدیریت کاربران",
+      alt: "تصویر کاربران",
     },
     created_at: "2026-07-01T05:30:00.000000Z",
     updated_at: "2026-07-01T14:17:29.052511Z",
@@ -31,7 +32,7 @@ const recordsMock: RecordItem[] = [
     },
     image: {
       url: "https://picsum.photos/seed/react-record-2/600/400",
-      alt: "تصویر مربوط به گزارش فروش",
+      alt: "تصوی گزارش فروش",
     },
     created_at: "2026-07-02T05:30:00.000000Z",
     updated_at: "2026-07-02T14:17:29.052511Z",
@@ -66,6 +67,15 @@ export function RecordsPage() {
       />
 
       {/* pagination sec */}
+      <RecordsPagination
+        currentPage={1}
+        totalPages={10}
+        totalRecords={97}
+        pageSize={10}
+        pageSizeOptions={[5, 10, 20]}
+        onPageChange={() => {}}
+        onPageSizeChange={() => {}}
+      />
     </main>
   );
 }

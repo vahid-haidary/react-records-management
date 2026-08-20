@@ -1,1 +1,1 @@
-export { RecordsPageHeader } from "./records-page-header";
+export { RecordsPageHeader } from "./RecordsPageHeader";

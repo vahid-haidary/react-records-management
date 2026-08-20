@@ -1,2 +1,2 @@
-export { RecordsTable } from "./records-table";
-export { RecordsTableRow } from "./record-table-row";
+export { RecordsTable } from "./RecordsTable";
+export { RecordsTableRow } from "./RecordTableRow";

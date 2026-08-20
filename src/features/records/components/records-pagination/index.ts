@@ -1,0 +1,1 @@
+export { RecordsPagination } from "./RecordsPagination";

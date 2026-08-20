@@ -30,7 +30,7 @@ export function RecordsFilters({
   return (
     <section className="mb-6 rounded-xl border border-border bg-surface p-4 sm:p-5">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end">
-        {/* Search */}
+        {/* search sec */}
         <div className="flex-1">
           <Input
             id="records-search"
@@ -43,7 +43,7 @@ export function RecordsFilters({
           />
         </div>
 
-        {/* Status */}
+        {/* status sec */}
         <div className="w-full lg:max-w-xs">
           <Select
             id="records-status"
@@ -55,7 +55,7 @@ export function RecordsFilters({
           />
         </div>
 
-        {/* Clear */}
+        {/* remove filter */}
         <Button
           type="button"
           variant="secondary"
