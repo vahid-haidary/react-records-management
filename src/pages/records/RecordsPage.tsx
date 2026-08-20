@@ -4,6 +4,8 @@ import { RecordsPagination } from "@/features/records/components/records-paginat
 import { RecordsTable } from "@/features/records/components/records-table";
 import type { RecordModel } from "@/features/records/api/model/record.model";
 import { useRecords } from "@/features/records/hooks/use-records";
+import { useMemo } from "react";
+import { usePagination } from "@/features/records/hooks/use-pagination";
 
 interface RecordsPageProps {
   onDelete: (record: RecordModel) => void;
@@ -11,6 +13,20 @@ interface RecordsPageProps {
 
 export function RecordsPage({ onDelete }: RecordsPageProps) {
   const { data: records = [], isLoading, isError, refetch } = useRecords();
+
+  const {
+    currentPage,
+    pageSize,
+    totalPages,
+    setCurrentPage,
+    setPageSize,
+    paginate,
+  } = usePagination({ totalItems: records.length });
+
+  const paginatedRecords = useMemo(
+    () => paginate(records),
+    [records, currentPage, pageSize],
+  );
 
   const handleEdit = (record: RecordModel) => {
     console.log("Edit:", record);
@@ -49,19 +65,19 @@ export function RecordsPage({ onDelete }: RecordsPageProps) {
       ) : (
         <>
           <RecordsTable
-            records={records}
+            records={paginatedRecords}
             onEdit={handleEdit}
             onDelete={onDelete}
           />
 
           <RecordsPagination
-            currentPage={1}
-            totalPages={1}
+            currentPage={currentPage}
+            totalPages={totalPages}
             totalRecords={records.length}
-            pageSize={10}
+            pageSize={pageSize}
             pageSizeOptions={[5, 10, 20]}
-            onPageChange={() => {}}
-            onPageSizeChange={() => {}}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={setPageSize}
           />
         </>
       )}
