@@ -1,137 +1,67 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
-
 import { Modal } from "@/shared/ui/modal";
-import { Input } from "@/shared/ui/input";
-import { Select } from "@/shared/ui/select";
-import { Button } from "@/shared/ui/button";
-import {
-  recordFormSchema,
-  type RecordFormValuesSchema,
-} from "../../schemas/record-form.schema";
-import type { RecordModel } from "../../api/model/record.model";
-import type { FilterOptionModel } from "../../api/adapter/filters.adapter";
+
+import type { RecordModel } from "@/features/records/api/model/record.model";
+import type { RecordFormSchema } from "../../schemas/record-form.schema";
+import { RecordForm } from "./RecordForm";
+
+interface StatusOption {
+  key: string;
+  label: string;
+}
 
 interface RecordFormModalProps {
   open: boolean;
+  record: RecordModel | null;
   onClose: () => void;
-  onSubmit: (values: RecordFormValuesSchema, statusLabel: string) => void;
-  record?: RecordModel | null;
-  statusOptions: FilterOptionModel[];
+  onSubmit: (
+    values: RecordFormSchema,
+    statusLabel: string,
+  ) => void | Promise<void>;
+  isSubmitting?: boolean;
+  statusOptions: StatusOption[];
 }
 
 export function RecordFormModal({
   open,
+  record,
   onClose,
   onSubmit,
-  record,
+  isSubmitting = false,
   statusOptions,
 }: RecordFormModalProps) {
-  const isEditMode = Boolean(record);
+  const mode = record ? "edit" : "create";
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    watch,
-    formState: { errors, isSubmitting },
-  } = useForm<RecordFormValuesSchema>({
-    resolver: zodResolver(recordFormSchema),
-    defaultValues: {
-      title: "",
-      description: "",
-      status: "",
-      imageUrl: "",
-      imageAlt: "",
-    },
-  });
+  const title = mode === "create" ? "ایجاد رکورد جدید" : "ویرایش رکورد";
 
-  useEffect(() => {
-    if (open) {
-      reset(
-        record
-          ? {
-              title: record.title,
-              description: record.description,
-              status: record.status.key,
-              imageUrl: record.image.url,
-              imageAlt: record.image.alt,
-            }
-          : {
-              title: "",
-              description: "",
-              status: "",
-              imageUrl: "",
-              imageAlt: "",
-            },
-      );
-    }
-  }, [open, record, reset]);
+  const initialValues: Partial<RecordFormSchema> | undefined = record
+    ? {
+        title: record.title,
+        description: record.description ?? undefined,
+        status: record.status.key,
+        imageUrl: record.image.url ?? undefined,
+        imageAlt: record.image.alt ?? undefined,
+      }
+    : undefined;
 
-  const selectedStatusKey = watch("status");
+  function handleSubmit(values: RecordFormSchema) {
+    const selectedStatus = statusOptions.find(
+      (option) => option.key === values.status,
+    );
 
-  function submit(values: RecordFormValuesSchema) {
-    const statusLabel =
-      statusOptions.find((option) => option.key === selectedStatusKey)?.label ??
-      "";
+    const statusLabel = selectedStatus?.label ?? values.status;
 
-    onSubmit(values, statusLabel);
-    onClose();
+    return onSubmit(values, statusLabel);
   }
 
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      title={isEditMode ? "ویرایش رکورد" : "ایجاد رکورد جدید"}
-    >
-      <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-4">
-        <Input
-          id="title"
-          label="عنوان"
-          {...register("title")}
-          error={errors.title?.message}
-        />
-
-        <Input
-          id="description"
-          label="توضیحات"
-          {...register("description")}
-          error={errors.description?.message}
-        />
-
-        <Select
-          id="status"
-          label="وضعیت"
-          {...register("status")}
-          options={statusOptions.map((o) => ({ value: o.key, label: o.label }))}
-          error={errors.status?.message}
-        />
-
-        <Input
-          id="imageUrl"
-          label="آدرس تصویر"
-          {...register("imageUrl")}
-          error={errors.imageUrl?.message}
-        />
-
-        <Input
-          id="imageAlt"
-          label="متن جایگزین تصویر"
-          {...register("imageAlt")}
-          error={errors.imageAlt?.message}
-        />
-
-        <div className="mt-2 flex justify-end gap-2">
-          <Button type="button" variant="secondary" onClick={onClose}>
-            انصراف
-          </Button>
-          <Button type="submit" disabled={isSubmitting}>
-            {isEditMode ? "ذخیره تغییرات" : "ایجاد رکورد"}
-          </Button>
-        </div>
-      </form>
+    <Modal open={open} title={title} onClose={onClose}>
+      <RecordForm
+        onSubmit={handleSubmit}
+        onCancel={onClose}
+        isSubmitting={isSubmitting}
+        initialValues={initialValues}
+        statusOptions={statusOptions}
+      />
     </Modal>
   );
 }

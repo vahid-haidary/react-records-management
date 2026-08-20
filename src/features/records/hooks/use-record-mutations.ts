@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { recordsQueryKey } from "./use-records";
 import { RecordsStorage } from "../api/storage/records.storage";
 import type { RecordModel } from "../api/model/record.model";
-import type { RecordFormValuesSchema } from "../schemas/record-form.schema";
+import type { RecordFormSchema } from "../schemas/record-form.schema";
 
 export function useRecordMutations() {
   const queryClient = useQueryClient();
@@ -11,7 +11,7 @@ export function useRecordMutations() {
     queryClient.invalidateQueries({ queryKey: recordsQueryKey });
   }
 
-  function createRecord(values: RecordFormValuesSchema, statusLabel: string) {
+  function createRecord(values: RecordFormSchema, statusLabel: string) {
     const now = new Date().toISOString();
 
     const record: RecordModel = {
@@ -33,7 +33,7 @@ export function useRecordMutations() {
 
   function editRecord(
     id: number,
-    values: RecordFormValuesSchema,
+    values: RecordFormSchema,
     statusLabel: string,
   ) {
     RecordsStorage.addEdited(id, {

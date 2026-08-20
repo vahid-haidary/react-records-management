@@ -5,11 +5,17 @@ import {
   type RecordFormSchema,
 } from "../../schemas/record-form.schema";
 
-interface RecordFormProps {
+interface StatusOption {
+  key: string;
+  label: string;
+}
+
+export interface RecordFormProps {
   onSubmit: (values: RecordFormSchema) => void | Promise<void>;
   onCancel: () => void;
   isSubmitting?: boolean;
   initialValues?: Partial<RecordFormSchema>;
+  statusOptions: StatusOption[];
 }
 
 const DEFAULT_VALUES: RecordFormSchema = {
@@ -25,6 +31,7 @@ export function RecordForm({
   onCancel,
   isSubmitting = false,
   initialValues,
+  statusOptions,
 }: RecordFormProps) {
   const {
     register,
@@ -119,8 +126,12 @@ export function RecordForm({
           className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm text-text outline-none transition-colors focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
         >
           <option value="">انتخاب وضعیت</option>
-          <option value="active">فعال</option>
-          <option value="inactive">غیرفعال</option>
+
+          {statusOptions.map((option) => (
+            <option key={option.key} value={option.key}>
+              {option.label}
+            </option>
+          ))}
         </select>
 
         {errors.status && (

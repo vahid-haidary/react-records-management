@@ -1,4 +1,3 @@
-// api/adapter/records.adapter.ts
 import type { RecordModel } from "../model/record.model";
 import type {
   RecordApiItem,

@@ -9,7 +9,7 @@ import { useRecords } from "@/features/records/hooks/use-records";
 import { usePagination } from "@/features/records/hooks/use-pagination";
 import { useRecordsFilters } from "@/features/records/hooks/use-records-filters";
 import { useRecordMutations } from "@/features/records/hooks/use-record-mutations";
-import type { RecordFormValuesSchema } from "@/features/records/schemas/record-form.schema";
+import type { RecordFormSchema } from "@/features/records/schemas/record-form.schema";
 import { RecordFormModal } from "@/features/records/components/record-modals/RecordFormModal";
 import { ConfirmDialog } from "@/shared/ui/confirm-dialog";
 
@@ -69,10 +69,7 @@ export function RecordsPage({
     onCloseCreateModal();
   }
 
-  function handleFormSubmit(
-    values: RecordFormValuesSchema,
-    statusLabel: string,
-  ) {
+  function handleFormSubmit(values: RecordFormSchema, statusLabel: string) {
     if (recordToEdit) {
       editRecord(recordToEdit.id, values, statusLabel);
     } else {
