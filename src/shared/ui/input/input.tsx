@@ -1,7 +1,7 @@
 import type { InputHTMLAttributes, ReactNode } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
+  label?: ReactNode;
   error?: string;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
@@ -19,7 +19,7 @@ export function Input({
   return (
     <div className="flex w-full flex-col gap-1.5">
       {label && (
-        <label htmlFor={id} className="text-sm font-medium text-text">
+        <label htmlFor={id} className="block text-sm font-medium text-text">
           {label}
         </label>
       )}
@@ -39,18 +39,22 @@ export function Input({
 
         <input
           id={id}
-          className={`h-11 w-full rounded-lg border bg-background px-3 text-sm text-text outline-none transition ${
+          className={`h-11 w-full rounded-lg border bg-background px-3 text-sm text-text outline-none transition-colors placeholder:text-text-muted disabled:cursor-not-allowed disabled:opacity-60 ${
             startIcon ? "pl-10" : ""
           } ${endIcon ? "pr-10" : ""} ${
             error
-              ? "border-danger"
+              ? "border-danger focus:border-danger"
               : "border-border focus:border-primary focus:ring-2 focus:ring-primary/10"
           } ${className}`}
           {...props}
         />
       </div>
 
-      {error && <span className="text-xs text-danger">{error}</span>}
+      {error && (
+        <p className="text-xs text-danger" role="alert">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

@@ -12,6 +12,7 @@ import { useRecordMutations } from "@/features/records/hooks/use-record-mutation
 import type { RecordFormSchema } from "@/features/records/schemas/record-form.schema";
 import { RecordFormModal } from "@/features/records/components/record-modals/RecordFormModal";
 import { ConfirmDialog } from "@/shared/ui/confirm-dialog";
+import { Button } from "@/shared/ui/button";
 
 interface RecordsPageProps {
   isCreateModalOpen: boolean;
@@ -113,13 +114,14 @@ export function RecordsPage({
           <p className="mb-4 text-sm text-danger">
             دریافت اطلاعات با خطا مواجه شد.
           </p>
-          <button
+          <Button
             type="button"
+            variant="danger"
             onClick={() => refetch()}
             className="rounded-lg bg-danger px-4 py-2 text-sm font-medium text-white"
           >
             تلاش مجدد
-          </button>
+          </Button>
         </div>
       ) : records.length === 0 ? (
         <div className="rounded-xl border border-border bg-surface p-8 text-center text-sm text-text-muted">

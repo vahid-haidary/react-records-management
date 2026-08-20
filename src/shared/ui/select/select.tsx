@@ -24,15 +24,15 @@ export function Select({
   return (
     <div className="flex w-full flex-col gap-1.5">
       {label && (
-        <label htmlFor={id} className="text-sm font-medium text-gray-700">
+        <label htmlFor={id} className="block text-sm font-medium text-text">
           {label}
         </label>
       )}
 
       <select
         id={id}
-        className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 ${
-          error ? "border-red-500" : "border-gray-300"
+        className={`h-11 w-full appearance-none rounded-lg border bg-background px-3 text-sm text-text outline-none transition-colors placeholder:text-text-muted focus:border-primary disabled:cursor-not-allowed disabled:opacity-60 ${
+          error ? "border-danger focus:border-danger" : "border-border"
         } ${className}`}
         {...props}
       >
@@ -45,7 +45,11 @@ export function Select({
         ))}
       </select>
 
-      {error && <span className="text-xs text-red-500">{error}</span>}
+      {error && (
+        <p className="text-xs text-danger" role="alert">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

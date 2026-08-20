@@ -16,7 +16,7 @@ export function RecordsPagination({
   return (
     <div className="border-t border-border bg-surface p-4">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        {/* Total records */}
+        {/* total records */}
         <div className="flex items-center justify-between text-sm text-text-muted sm:justify-start">
           <span>تعداد کل رکوردها</span>
 
@@ -26,7 +26,6 @@ export function RecordsPagination({
         </div>
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-          {/* Page size */}
           <div className="flex items-center justify-between gap-2 sm:justify-start">
             <label
               htmlFor="page-size"
@@ -49,7 +48,7 @@ export function RecordsPagination({
             </select>
           </div>
 
-          {/* Pagination */}
+          {/* pagination */}
           <div className="flex items-center justify-center gap-3 sm:justify-start">
             <button
               type="button"

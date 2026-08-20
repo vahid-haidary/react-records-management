@@ -5,6 +5,10 @@ import {
   type RecordFormSchema,
 } from "../../schemas/record-form.schema";
 import { RECORD_DESCRIPTION_MAX_LENGTH } from "../../constants/records.constants";
+import { Select } from "@/shared/ui/select";
+import { Textarea } from "@/shared/ui/textarea";
+import { Button } from "@/shared/ui/button";
+import { Input } from "@/shared/ui/input";
 
 interface StatusOption {
   key: string;
@@ -57,30 +61,20 @@ export function RecordForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 " noValidate>
       {/* title */}
-      <div className="space-y-2">
-        <label
-          htmlFor="record-title"
-          className="block text-sm font-medium text-text"
-        >
-          عنوان
-          <span className="mr-1 text-danger">*</span>
-        </label>
-
-        <input
-          id="record-title"
-          type="text"
-          {...register("title")}
-          disabled={isSubmitting}
-          placeholder="عنوان رکورد را وارد کنید"
-          className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm text-text outline-none transition-colors placeholder:text-text-muted focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
-        />
-
-        {errors.title && (
-          <p className="text-xs text-danger" role="alert">
-            {errors.title.message}
-          </p>
-        )}
-      </div>
+      <Input
+        id="record-title"
+        type="text"
+        label={
+          <>
+            عنوان
+            <span className="mr-1 text-danger">*</span>
+          </>
+        }
+        {...register("title")}
+        disabled={isSubmitting}
+        placeholder="عنوان رکورد را وارد کنید"
+        error={errors.title?.message}
+      />
 
       {/* desc */}
       <div className="space-y-2">
@@ -98,118 +92,74 @@ export function RecordForm({
           </span>
         </div>
 
-        <textarea
+        <Textarea
           id="record-description"
           {...register("description")}
           disabled={isSubmitting}
           rows={4}
           maxLength={RECORD_DESCRIPTION_MAX_LENGTH}
           placeholder="توضیحات رکورد را وارد کنید"
-          className="w-full resize-none rounded-lg border hide-scrollbar border-border bg-background px-3 py-2.5 text-sm leading-6 text-text outline-none transition-colors placeholder:text-text-muted focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
+          className="resize-none hide-scrollbar"
+          error={errors.description?.message}
         />
-
-        {errors.description && (
-          <p className="text-xs text-danger" role="alert">
-            {errors.description.message}
-          </p>
-        )}
       </div>
 
       {/* Status */}
-      <div className="space-y-2">
-        <label
-          htmlFor="record-status"
-          className="block text-sm font-medium text-text"
-        >
-          وضعیت
-          <span className="mr-1 text-danger">*</span>
-        </label>
-
-        <select
-          id="record-status"
-          {...register("status")}
-          disabled={isSubmitting}
-          className="h-11 w-full rounded-lg appearance-none border border-border bg-background px-3 text-sm text-text outline-none transition-colors focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          <option value="">انتخاب وضعیت</option>
-
-          {statusOptions.map((option) => (
-            <option key={option.key} value={option.key}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-
-        {errors.status && (
-          <p className="text-xs text-danger" role="alert">
-            {errors.status.message}
-          </p>
-        )}
-      </div>
+      <Select
+        id="record-status"
+        label="وضعیت"
+        {...register("status")}
+        disabled={isSubmitting}
+        error={errors.status?.message}
+        placeholder="انتخاب وضعیت"
+        options={statusOptions.map((option) => ({
+          value: option.key,
+          label: option.label,
+        }))}
+      />
 
       {/* image */}
-      <div className="space-y-2">
-        <label
-          htmlFor="record-image-url"
-          className="block text-sm font-medium text-text"
-        >
-          آدرس تصویر
-        </label>
-
-        <input
-          id="record-image-url"
-          type="url"
-          {...register("imageUrl")}
-          disabled={isSubmitting}
-          placeholder="https://google.com/image.jpg"
-          dir="ltr"
-          className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm text-text outline-none transition-colors placeholder:text-text-muted focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
-        />
-
-        {errors.imageUrl && (
-          <p className="text-xs text-danger" role="alert">
-            {errors.imageUrl.message}
-          </p>
-        )}
-      </div>
+      <Input
+        id="record-image-url"
+        type="url"
+        label="آدرس تصویر"
+        {...register("imageUrl")}
+        disabled={isSubmitting}
+        placeholder="https://google.com/image.jpg"
+        dir="ltr"
+        error={errors.imageUrl?.message}
+      />
 
       {/* image alt */}
-      <div className="space-y-2">
-        <label
-          htmlFor="record-image-alt"
-          className="block text-sm font-medium text-text"
-        >
-          متن جایگزین تصویر
-        </label>
-
-        <input
-          id="record-image-alt"
-          type="text"
-          {...register("imageAlt")}
-          disabled={isSubmitting}
-          placeholder="توضیح کوتاه برای تصویر"
-          className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm text-text outline-none transition-colors placeholder:text-text-muted focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
-        />
-      </div>
+      <Input
+        id="record-image-alt"
+        type="text"
+        label="متن جایگزین تصویر"
+        {...register("imageAlt")}
+        disabled={isSubmitting}
+        placeholder="توضیح کوتاه برای تصویر"
+        error={errors.imageAlt?.message}
+      />
 
       {/* actions */}
       <div className="flex flex-col-reverse gap-2 border-t border-border pt-4 sm:flex-row sm:justify-end">
-        <button
+        <Button
+          variant="ghost"
           type="button"
           onClick={onCancel}
           disabled={isSubmitting}
           className="h-11 rounded-lg border border-border px-4 text-sm font-medium text-text transition-colors hover:bg-background disabled:cursor-not-allowed disabled:opacity-60"
         >
           انصراف
-        </button>
+        </Button>
 
-        <button
+        <Button
           type="submit"
           disabled={isSubmitting}
           className="h-11 rounded-lg bg-primary px-5 text-sm font-medium text-white transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? "در حال ذخیره..." : "ذخیره رکورد"}
-        </button>
+        </Button>
       </div>
     </form>
   );

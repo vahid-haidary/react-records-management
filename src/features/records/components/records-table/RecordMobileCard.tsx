@@ -2,6 +2,7 @@ import type { RecordModel } from "../../api/model/record.model";
 import { formatRecordDate } from "../../utils/format-record-date";
 import { RecordActions } from "./RecordActions";
 import { RecordStatusBadge } from "./RecordStatusBadge";
+import logoDefault from "@/assets/logo-default.png";
 
 interface RecordMobileCardProps {
   record: RecordModel;
@@ -20,8 +21,8 @@ export function RecordMobileCard({
         <div className="flex min-w-0 items-center gap-3">
           <div className="h-14 w-20 shrink-0 overflow-hidden rounded-lg border border-border">
             <img
-              src={record.image.url}
-              alt={record.image.alt}
+              src={record.image.url || logoDefault}
+              alt={record.image.alt || "تصویر پیش‌ فرض"}
               loading="lazy"
               className="block h-full w-full object-cover"
             />

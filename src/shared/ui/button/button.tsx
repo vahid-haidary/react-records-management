@@ -21,13 +21,29 @@ export function Button({
   isLoading = false,
   disabled,
   className = "",
+  type = "button",
   ...props
 }: ButtonProps) {
   return (
     <button
-      type="button"
+      type={type}
       disabled={disabled || isLoading}
-      className={`inline-flex items-center cursor-pointer justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${variantClasses[variant]} ${className}`}
+      className={`
+        inline-flex
+        cursor-pointer
+        items-center
+        justify-center
+        rounded-lg
+        px-4
+        py-2
+        text-sm
+        font-medium
+        transition-colors
+        disabled:cursor-not-allowed
+        disabled:opacity-50
+        ${variantClasses[variant]}
+        ${className}
+      `}
       {...props}
     >
       {isLoading ? "در حال پردازش..." : children}

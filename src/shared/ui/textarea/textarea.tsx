@@ -15,20 +15,26 @@ export function Textarea({
   return (
     <div className="flex w-full flex-col gap-1.5">
       {label && (
-        <label htmlFor={id} className="text-sm font-medium text-gray-700">
+        <label htmlFor={id} className="text-sm font-medium text-text">
           {label}
         </label>
       )}
 
       <textarea
         id={id}
-        className={`min-h-32 w-full resize-y rounded-lg border px-3 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 ${
-          error ? "border-red-500" : "border-gray-300"
-        } ${className}`}
+        className={`min-h-32 w-full resize-y rounded-lg border bg-background px-3 py-2.5 text-sm leading-6 text-text outline-none transition-colors placeholder:text-text-muted ${
+          error
+            ? "border-danger focus:border-danger"
+            : "border-border focus:border-primary focus:ring-2 focus:ring-primary/10"
+        } disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
         {...props}
       />
 
-      {error && <span className="text-xs text-red-500">{error}</span>}
+      {error && (
+        <p className="text-xs text-danger" role="alert">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
