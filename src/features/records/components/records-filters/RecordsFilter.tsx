@@ -57,10 +57,10 @@ export function RecordsFilters({
           variant="secondary"
           disabled={!hasActiveFilters}
           onClick={onClear}
-          className="h-11 shrink-0"
+          className="filter-clear-button"
         >
+          <CiTrash size={19} />
           <span>حذف فیلترها</span>
-          <CiTrash size={20} />
         </Button>
       </div>
     </section>

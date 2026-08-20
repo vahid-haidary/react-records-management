@@ -49,6 +49,36 @@
   --color-border: #e2e8f0;
 }
 
+.filter-clear-button {
+  height: 2.75rem;
+  flex-shrink: 0;
+  gap: 0.5rem;
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    transform 200ms ease;
+}
+
+.filter-clear-button:not(:disabled) {
+  border-color: color-mix(in srgb, var(--color-danger) 30%, transparent);
+  background-color: color-mix(in srgb, var(--color-danger) 10%, transparent);
+  color: var(--color-danger);
+}
+
+.filter-clear-button:not(:disabled):hover {
+  border-color: color-mix(in srgb, var(--color-danger) 50%, transparent);
+  background-color: color-mix(in srgb, var(--color-danger) 15%, transparent);
+}
+
+.filter-clear-button:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+.filter-clear-button:disabled {
+  cursor: not-allowed;
+}
+
 .hide-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;

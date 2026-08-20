@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   recordFormSchema,
@@ -37,7 +37,7 @@ export function RecordForm({
     register,
     handleSubmit,
     formState: { errors },
-    watch,
+    control,
   } = useForm<RecordFormSchema>({
     resolver: zodResolver(recordFormSchema),
     defaultValues: {
@@ -46,7 +46,12 @@ export function RecordForm({
     },
   });
 
-  const descriptionLength = watch("description")?.length ?? 0;
+  const description = useWatch({
+    control,
+    name: "description",
+  });
+
+  const descriptionLength = description?.length ?? 0;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 " noValidate>
@@ -123,7 +128,7 @@ export function RecordForm({
           id="record-status"
           {...register("status")}
           disabled={isSubmitting}
-          className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm text-text outline-none transition-colors focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
+          className="h-11 w-full rounded-lg appearance-none border border-border bg-background px-3 text-sm text-text outline-none transition-colors focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
         >
           <option value="">انتخاب وضعیت</option>
 
