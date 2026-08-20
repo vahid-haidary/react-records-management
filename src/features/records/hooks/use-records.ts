@@ -1,7 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { RecordsApi } from "../api/records.api";
-import { adaptRecordsResponse } from "../api/adapter/records.adapter";
+import {
+  adaptRecordsResponse,
+  adaptFiltersResponse,
+} from "../api/adapter/records.adapter";
 
 export const recordsQueryKey = ["records"] as const;
 
@@ -11,7 +14,10 @@ export function useRecords() {
     queryFn: async () => {
       const response = await RecordsApi.getAll();
 
-      return adaptRecordsResponse(response);
+      return {
+        records: adaptRecordsResponse(response),
+        filters: adaptFiltersResponse(response),
+      };
     },
   });
 }

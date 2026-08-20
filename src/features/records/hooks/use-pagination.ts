@@ -1,25 +1,28 @@
+// hooks/use-pagination.ts
 import { useState } from "react";
 
 interface UsePaginationOptions {
   totalItems: number;
   initialPageSize?: number;
+  resetKey?: string | number;
 }
 
 export function usePagination({
   totalItems,
   initialPageSize = 10,
+  resetKey,
 }: UsePaginationOptions) {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(initialPageSize);
+  const [prevResetKey, setPrevResetKey] = useState(resetKey);
 
   const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
 
-  const [prevTotalPages, setPrevTotalPages] = useState(totalPages);
-  if (totalPages !== prevTotalPages) {
-    setPrevTotalPages(totalPages);
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages);
-    }
+  if (resetKey !== prevResetKey) {
+    setPrevResetKey(resetKey);
+    setCurrentPage(1);
+  } else if (currentPage > totalPages) {
+    setCurrentPage(totalPages);
   }
 
   function handlePageSizeChange(size: number) {

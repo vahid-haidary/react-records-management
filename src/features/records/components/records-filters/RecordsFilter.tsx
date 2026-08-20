@@ -1,26 +1,22 @@
 import { CiSearch, CiTrash } from "react-icons/ci";
-
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Select } from "@/shared/ui/select";
+import type { FilterOptionModel } from "@/features/records/api/adapter/filters.adapter";
 
 interface RecordsFiltersProps {
   search: string;
   status: string;
+  statusOptions: FilterOptionModel[];
   onSearchChange: (value: string) => void;
   onStatusChange: (value: string) => void;
   onClear: () => void;
 }
 
-const statusOptions = [
-  { value: "active", label: "فعال" },
-  { value: "inactive", label: "غیرفعال" },
-  { value: "pending", label: "در انتظار" },
-];
-
 export function RecordsFilters({
   search,
   status,
+  statusOptions,
   onSearchChange,
   onStatusChange,
   onClear,
@@ -30,7 +26,6 @@ export function RecordsFilters({
   return (
     <section className="mb-6 rounded-xl border border-border bg-surface p-4 sm:p-5">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end">
-        {/* search sec */}
         <div className="flex-1">
           <Input
             id="records-search"
@@ -43,19 +38,20 @@ export function RecordsFilters({
           />
         </div>
 
-        {/* status sec */}
         <div className="w-full lg:max-w-xs">
           <Select
             id="records-status"
             label="وضعیت"
             value={status}
             onChange={(event) => onStatusChange(event.target.value)}
-            options={statusOptions}
-            placeholder="همه وضعیت‌ ها"
+            options={statusOptions.map((option) => ({
+              value: option.key,
+              label: option.label,
+            }))}
+            placeholder="همه وضعیت‌ها"
           />
         </div>
 
-        {/* remove filter */}
         <Button
           type="button"
           variant="secondary"

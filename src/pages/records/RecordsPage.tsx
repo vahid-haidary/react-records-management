@@ -6,13 +6,29 @@ import type { RecordModel } from "@/features/records/api/model/record.model";
 import { useRecords } from "@/features/records/hooks/use-records";
 import { useMemo } from "react";
 import { usePagination } from "@/features/records/hooks/use-pagination";
+import { useRecordsFilters } from "@/features/records/hooks/use-records-filters";
 
 interface RecordsPageProps {
   onDelete: (record: RecordModel) => void;
 }
 
 export function RecordsPage({ onDelete }: RecordsPageProps) {
-  const { data: records = [], isLoading, isError, refetch } = useRecords();
+  const { data, isLoading, isError, refetch } = useRecords();
+
+  const records = data?.records ?? [];
+  const filters = data?.filters ?? [];
+
+  const statusFilter = filters.find((f) => f.key === "status");
+  const statusOptions = statusFilter?.options ?? [];
+
+  const {
+    search,
+    setSearch,
+    status,
+    setStatus,
+    filteredRecords,
+    clearFilters,
+  } = useRecordsFilters(records);
 
   const {
     currentPage,
@@ -21,11 +37,14 @@ export function RecordsPage({ onDelete }: RecordsPageProps) {
     setCurrentPage,
     setPageSize,
     paginate,
-  } = usePagination({ totalItems: records.length });
+  } = usePagination({
+    totalItems: filteredRecords.length,
+    resetKey: `${search}|${status}`,
+  });
 
   const paginatedRecords = useMemo(
-    () => paginate(records),
-    [records, currentPage, pageSize],
+    () => paginate(filteredRecords),
+    [filteredRecords, currentPage, pageSize],
   );
 
   const handleEdit = (record: RecordModel) => {
@@ -37,11 +56,12 @@ export function RecordsPage({ onDelete }: RecordsPageProps) {
       <RecordsPageHeader totalRecords={records.length} />
 
       <RecordsFilters
-        search=""
-        status=""
-        onSearchChange={() => {}}
-        onStatusChange={() => {}}
-        onClear={() => {}}
+        search={search}
+        status={status}
+        statusOptions={statusOptions}
+        onSearchChange={setSearch}
+        onStatusChange={setStatus}
+        onClear={clearFilters}
       />
 
       {isLoading ? (
@@ -53,7 +73,6 @@ export function RecordsPage({ onDelete }: RecordsPageProps) {
           <p className="mb-4 text-sm text-danger">
             دریافت اطلاعات با خطا مواجه شد.
           </p>
-
           <button
             type="button"
             onClick={() => refetch()}
@@ -61,6 +80,16 @@ export function RecordsPage({ onDelete }: RecordsPageProps) {
           >
             تلاش مجدد
           </button>
+        </div>
+      ) : records.length === 0 ? (
+        <div className="rounded-xl border border-border bg-surface p-8 text-center text-sm text-text-muted">
+          هنوز رکوردی ثبت نشده است.
+        </div>
+      ) : filteredRecords.length === 0 ? (
+        <div className="rounded-xl border border-border bg-surface p-8 text-center">
+          <p className="mb-4 text-sm text-text-muted">
+            رکوردی مطابق فیلترهای انتخاب‌شده پیدا نشد.
+          </p>
         </div>
       ) : (
         <>
@@ -73,7 +102,7 @@ export function RecordsPage({ onDelete }: RecordsPageProps) {
           <RecordsPagination
             currentPage={currentPage}
             totalPages={totalPages}
-            totalRecords={records.length}
+            totalRecords={filteredRecords.length}
             pageSize={pageSize}
             pageSizeOptions={[5, 10, 20]}
             onPageChange={setCurrentPage}
