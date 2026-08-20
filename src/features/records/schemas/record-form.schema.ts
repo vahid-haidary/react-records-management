@@ -16,4 +16,4 @@ export const recordFormSchema = z.object({
   imageAlt: z.string().optional().or(z.literal("")),
 });
 
-export type RecordFormValues = z.infer<typeof recordFormSchema>;
+export type RecordFormValuesSchema = z.infer<typeof recordFormSchema>;
