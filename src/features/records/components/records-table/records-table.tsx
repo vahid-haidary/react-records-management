@@ -13,7 +13,7 @@ export function RecordsTable({ records, onEdit, onDelete }: RecordsTableProps) {
       {/* Desktop */}
       <div className="hidden overflow-hidden rounded-xl border border-border bg-surface md:block">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[980px] border-collapse text-right">
+          <table className="w-full min-w-245 border-collapse text-right">
             <thead>
               <tr className="border-b border-border bg-background">
                 <th className="w-20 px-4 py-4 text-xs font-semibold text-text-muted">
