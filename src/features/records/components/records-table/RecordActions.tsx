@@ -1,12 +1,12 @@
 import { CiEdit, CiTrash } from "react-icons/ci";
 
 import { Button } from "@/shared/ui/button";
-import type { RecordItem } from "../../types/record.types";
+import type { RecordModel } from "../../api/model/record.model";
 
 interface RecordActionsProps {
-  record: RecordItem;
-  onEdit: (record: RecordItem) => void;
-  onDelete: (record: RecordItem) => void;
+  record: RecordModel;
+  onEdit: (record: RecordModel) => void;
+  onDelete: (record: RecordModel) => void;
 }
 
 export function RecordActions({
