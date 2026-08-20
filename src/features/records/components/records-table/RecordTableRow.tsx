@@ -32,7 +32,7 @@ export function RecordsTableRow({
       <td className="px-4 py-4 align-middle">
         <p
           title={record.title}
-          className="max-w-52 truncate text-sm font-semibold text-text"
+          className="max-w-52 truncate text-base font-semibold text-text"
         >
           {record.title}
         </p>

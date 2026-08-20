@@ -8,6 +8,16 @@ interface RecordsTableProps {
   onDelete: (record: RecordItem) => void;
 }
 
+const COLUMNS = [
+  { label: "شناسه", className: "w-20" },
+  { label: "تصویر", className: "w-24" },
+  { label: "عنوان", className: "min-w-48" },
+  { label: "توضیحات", className: "min-w-72" },
+  { label: "وضعیت", className: "w-28" },
+  { label: "تاریخ ایجاد", className: "w-36" },
+  { label: "عملیات", className: "w-32" },
+] as const;
+
 export function RecordsTable({ records, onEdit, onDelete }: RecordsTableProps) {
   return (
     <div className="w-full">
@@ -17,33 +27,14 @@ export function RecordsTable({ records, onEdit, onDelete }: RecordsTableProps) {
           <table className="w-full min-w-245 border-collapse text-right">
             <thead>
               <tr className="border-b border-border bg-background">
-                <th className="w-20 px-4 py-4 text-xs font-semibold text-text-muted">
-                  شناسه
-                </th>
-
-                <th className="w-24 px-4 py-4 text-xs font-semibold text-text-muted">
-                  تصویر
-                </th>
-
-                <th className="min-w-48 px-4 py-4 text-xs font-semibold text-text-muted">
-                  عنوان
-                </th>
-
-                <th className="min-w-72 px-4 py-4 text-xs font-semibold text-text-muted">
-                  توضیحات
-                </th>
-
-                <th className="w-28 px-4 py-4 text-xs font-semibold text-text-muted">
-                  وضعیت
-                </th>
-
-                <th className="w-36 px-4 py-4 text-xs font-semibold text-text-muted">
-                  تاریخ ایجاد
-                </th>
-
-                <th className="w-32 px-4 py-4 text-xs font-semibold text-text-muted">
-                  عملیات
-                </th>
+                {COLUMNS.map(({ label, className }) => (
+                  <th
+                    key={label}
+                    className={`${className} px-4 py-4 text-sm font-semibold text-text-muted`}
+                  >
+                    {label}
+                  </th>
+                ))}
               </tr>
             </thead>
 

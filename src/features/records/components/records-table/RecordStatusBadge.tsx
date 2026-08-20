@@ -1,13 +1,17 @@
 import type { RecordItem } from "../../types/record.types";
-
 interface RecordStatusBadgeProps {
   record: RecordItem;
 }
 
 export function RecordStatusBadge({ record }: RecordStatusBadgeProps) {
+  const isActive = record.status.key === "active";
+
   return (
-    <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-success/10 px-2.5 py-1 text-xs font-medium text-success">
-      <span className="h-1.5 w-1.5 rounded-full bg-success" />
+    <span
+      className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-sm font-medium ${
+        isActive ? "bg-success/10 text-success" : "bg-danger/10 text-danger"
+      }`}
+    >
       {record.status.value}
     </span>
   );

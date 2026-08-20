@@ -22,7 +22,7 @@ export function RecordActions({
         onClick={() => onEdit(record)}
         className="min-h-10 gap-1.5 px-3 text-sm"
       >
-        <CiEdit size={19} aria-hidden="true" />
+        <CiEdit size={19} />
         <span>ویرایش</span>
       </Button>
 
@@ -32,7 +32,7 @@ export function RecordActions({
         onClick={() => onDelete(record)}
         className="min-h-10 gap-1.5 px-3 text-sm"
       >
-        <CiTrash size={19} aria-hidden="true" />
+        <CiTrash size={19} />
         <span>حذف</span>
       </Button>
     </div>

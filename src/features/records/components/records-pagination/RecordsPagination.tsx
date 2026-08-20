@@ -58,7 +58,7 @@ export function RecordsPagination({
               aria-label="صفحه قبل"
               className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-text transition-colors hover:bg-background disabled:cursor-not-allowed disabled:opacity-50"
             >
-              <ChevronRightIcon className="h-4 w-4" aria-hidden="true" />
+              <ChevronRightIcon className="h-4 w-4" />
             </button>
 
             <span className="whitespace-nowrap text-sm text-text-muted">
@@ -79,7 +79,7 @@ export function RecordsPagination({
               aria-label="صفحه بعد"
               className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-text transition-colors hover:bg-background disabled:cursor-not-allowed disabled:opacity-50"
             >
-              <ChevronLeftIcon className="h-4 w-4" aria-hidden="true" />
+              <ChevronLeftIcon className="h-4 w-4" />
             </button>
           </div>
         </div>

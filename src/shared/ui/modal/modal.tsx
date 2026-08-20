@@ -57,7 +57,7 @@ export function Modal({ open, title, children, onClose }: ModalProps) {
             aria-label="بستن"
             className="shrink-0 rounded-lg p-2 text-text-muted transition-colors hover:bg-background hover:text-text"
           >
-            <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+            <XMarkIcon className="h-5 w-5" />
           </button>
         </div>
 

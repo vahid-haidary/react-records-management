@@ -43,16 +43,14 @@ export function RecordForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 " noValidate>
-      {/* Title */}
-      <div className="space-y-1.5">
+      {/* title */}
+      <div className="space-y-2">
         <label
           htmlFor="record-title"
           className="block text-sm font-medium text-text"
         >
           عنوان
-          <span className="mr-1 text-danger" aria-hidden="true">
-            *
-          </span>
+          <span className="mr-1 text-danger">*</span>
         </label>
 
         <input
@@ -71,8 +69,8 @@ export function RecordForm({
         )}
       </div>
 
-      {/* Description */}
-      <div className="space-y-1.5">
+      {/* desc */}
+      <div className="space-y-2">
         <div className="flex items-center justify-between gap-2">
           <label
             htmlFor="record-description"
@@ -94,7 +92,7 @@ export function RecordForm({
           rows={4}
           maxLength={255}
           placeholder="توضیحات رکورد را وارد کنید"
-          className="w-full resize-none rounded-lg border border-border bg-background px-3 py-2.5 text-sm leading-6 text-text outline-none transition-colors placeholder:text-text-muted focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full resize-none rounded-lg border hide-scrollbar border-border bg-background px-3 py-2.5 text-sm leading-6 text-text outline-none transition-colors placeholder:text-text-muted focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
         />
 
         {errors.description && (
@@ -105,15 +103,13 @@ export function RecordForm({
       </div>
 
       {/* Status */}
-      <div className="space-y-1.5">
+      <div className="space-y-2">
         <label
           htmlFor="record-status"
           className="block text-sm font-medium text-text"
         >
           وضعیت
-          <span className="mr-1 text-danger" aria-hidden="true">
-            *
-          </span>
+          <span className="mr-1 text-danger">*</span>
         </label>
 
         <select
@@ -134,8 +130,8 @@ export function RecordForm({
         )}
       </div>
 
-      {/* Image URL */}
-      <div className="space-y-1.5">
+      {/* image */}
+      <div className="space-y-2">
         <label
           htmlFor="record-image-url"
           className="block text-sm font-medium text-text"
@@ -148,7 +144,7 @@ export function RecordForm({
           type="url"
           {...register("imageUrl")}
           disabled={isSubmitting}
-          placeholder="https://example.com/image.jpg"
+          placeholder="https://google.com/image.jpg"
           dir="ltr"
           className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm text-text outline-none transition-colors placeholder:text-text-muted focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
         />
@@ -160,8 +156,8 @@ export function RecordForm({
         )}
       </div>
 
-      {/* Image Alt */}
-      <div className="space-y-1.5">
+      {/* image alt */}
+      <div className="space-y-2">
         <label
           htmlFor="record-image-alt"
           className="block text-sm font-medium text-text"
@@ -179,7 +175,7 @@ export function RecordForm({
         />
       </div>
 
-      {/* Actions */}
+      {/* actions */}
       <div className="flex flex-col-reverse gap-2 border-t border-border pt-4 sm:flex-row sm:justify-end">
         <button
           type="button"

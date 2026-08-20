@@ -63,8 +63,8 @@ export function RecordsFilters({
           onClick={onClear}
           className="h-11 shrink-0"
         >
+          <span>حذف فیلترها</span>
           <CiTrash size={20} />
-          <span>پاک کردن فیلترها</span>
         </Button>
       </div>
     </section>
