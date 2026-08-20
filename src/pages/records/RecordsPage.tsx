@@ -4,15 +4,19 @@ import { RecordsFilters } from "@/features/records/components/records-filters";
 import { RecordsPageHeader } from "@/features/records/components/records-page-header";
 import { RecordsPagination } from "@/features/records/components/records-pagination";
 import { RecordsTable } from "@/features/records/components/records-table";
+import { RecordFormModal } from "@/features/records/components/record-modals/RecordFormModal";
+
 import type { RecordModel } from "@/features/records/api/model/record.model";
 import { useRecords } from "@/features/records/hooks/use-records";
 import { usePagination } from "@/features/records/hooks/use-pagination";
 import { useRecordsFilters } from "@/features/records/hooks/use-records-filters";
 import { useRecordMutations } from "@/features/records/hooks/use-record-mutations";
+
 import type { RecordFormSchema } from "@/features/records/schemas/record-form.schema";
-import { RecordFormModal } from "@/features/records/components/record-modals/RecordFormModal";
-import { ConfirmDialog } from "@/shared/ui/confirm-dialog";
+
 import { Button } from "@/shared/ui/button";
+import { ConfirmDialog } from "@/shared/ui/confirm-dialog";
+import { RecordsTableSkeleton } from "@/features/records/ui/RecordsTableSkeleton";
 
 interface RecordsPageProps {
   isCreateModalOpen: boolean;
@@ -28,7 +32,7 @@ export function RecordsPage({
   const records = data?.records ?? [];
   const filters = data?.filters ?? [];
 
-  const statusFilter = filters.find((f) => f.key === "status");
+  const statusFilter = filters.find((filter) => filter.key === "status");
   const statusOptions = statusFilter?.options ?? [];
 
   const {
@@ -60,8 +64,17 @@ export function RecordsPage({
   const { createRecord, editRecord, deleteRecord } = useRecordMutations();
 
   const [recordToEdit, setRecordToEdit] = useState<RecordModel | null>(null);
+  const [recordToDelete, setRecordToDelete] = useState<RecordModel | null>(
+    null,
+  );
 
-  const handleEdit = (record: RecordModel) => setRecordToEdit(record);
+  const handleEdit = (record: RecordModel) => {
+    setRecordToEdit(record);
+  };
+
+  const handleDeleteClick = (record: RecordModel) => {
+    setRecordToDelete(record);
+  };
 
   const isFormModalOpen = isCreateModalOpen || Boolean(recordToEdit);
 
@@ -76,20 +89,17 @@ export function RecordsPage({
     } else {
       createRecord(values, statusLabel);
     }
+
     closeFormModal();
   }
 
-  const [recordToDelete, setRecordToDelete] = useState<RecordModel | null>(
-    null,
-  );
-
-  const handleDeleteClick = (record: RecordModel) => setRecordToDelete(record);
-
   function confirmDelete() {
-    if (recordToDelete) {
-      deleteRecord(recordToDelete.id);
-      setRecordToDelete(null);
+    if (!recordToDelete) {
+      return;
     }
+
+    deleteRecord(recordToDelete.id);
+    setRecordToDelete(null);
   }
 
   return (
@@ -106,20 +116,14 @@ export function RecordsPage({
       />
 
       {isLoading ? (
-        <div className="rounded-xl border border-border bg-surface p-8 text-center text-sm text-text-muted">
-          در حال دریافت اطلاعات...
-        </div>
+        <RecordsTableSkeleton />
       ) : isError ? (
         <div className="rounded-xl border border-danger/20 bg-danger/5 p-8 text-center">
           <p className="mb-4 text-sm text-danger">
             دریافت اطلاعات با خطا مواجه شد.
           </p>
-          <Button
-            type="button"
-            variant="danger"
-            onClick={() => refetch()}
-            className="rounded-lg bg-danger px-4 py-2 text-sm font-medium text-white"
-          >
+
+          <Button type="button" variant="danger" onClick={() => refetch()}>
             تلاش مجدد
           </Button>
         </div>

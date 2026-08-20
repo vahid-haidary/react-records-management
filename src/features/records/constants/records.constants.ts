@@ -5,3 +5,5 @@ export const DEFAULT_RECORDS_PAGE_SIZE = 10;
 export const DEFAULT_RECORDS_PAGE = 1;
 
 export const RECORD_DESCRIPTION_MAX_LENGTH = 255;
+
+export const SKELETON_ROWS = 5;
