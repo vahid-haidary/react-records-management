@@ -1,4 +1,5 @@
 import type { RecordModel } from "../model/record.model";
+import { generateId } from "@/shared/utils/generate-id";
 
 const STORAGE_KEY = "records-overrides";
 
@@ -38,13 +39,17 @@ export const RecordsStorage = {
     const overrides = readOverrides();
 
     const createdIndex = overrides.created.findIndex((r) => r.id === id);
+
     if (createdIndex !== -1) {
       overrides.created[createdIndex] = {
         ...overrides.created[createdIndex],
         ...patch,
       };
     } else {
-      overrides.edited[id] = { ...overrides.edited[id], ...patch };
+      overrides.edited[id] = {
+        ...overrides.edited[id],
+        ...patch,
+      };
     }
 
     writeOverrides(overrides);
@@ -63,7 +68,5 @@ export const RecordsStorage = {
     writeOverrides(overrides);
   },
 
-  generateId(): number {
-    return -Date.now();
-  },
+  generateId,
 };
