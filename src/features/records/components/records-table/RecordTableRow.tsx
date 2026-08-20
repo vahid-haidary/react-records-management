@@ -2,7 +2,6 @@ import type { RecordModel } from "../../api/model/record.model";
 import { formatRecordDate } from "../../utils/format-record-date";
 import { RecordActions } from "./RecordActions";
 import { RecordStatusBadge } from "./RecordStatusBadge";
-import defaultImage from "@/assets/logo-default.png";
 
 interface RecordsTableRowProps {
   record: RecordModel;

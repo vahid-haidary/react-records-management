@@ -1,13 +1,14 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { QueryProvider } from "@/app/providers/query-provider";
-import "./index.css";
+
+import { AppProviders } from "@/app/providers/app-providers";
 import App from "./App";
+import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryProvider>
+    <AppProviders>
       <App />
-    </QueryProvider>
+    </AppProviders>
   </StrictMode>,
 );
