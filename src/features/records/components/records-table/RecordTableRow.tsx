@@ -1,12 +1,13 @@
-import type { RecordItem } from "../../types/record.types";
+import type { RecordModel } from "../../api/model/record.model";
 import { formatRecordDate } from "../../utils/format-record-date";
 import { RecordActions } from "./RecordActions";
 import { RecordStatusBadge } from "./RecordStatusBadge";
+import defaultImage from "@/assets/logo-default.png";
 
 interface RecordsTableRowProps {
-  record: RecordItem;
-  onEdit: (record: RecordItem) => void;
-  onDelete: (record: RecordItem) => void;
+  record: RecordModel;
+  onEdit: (record: RecordModel) => void;
+  onDelete: (record: RecordModel) => void;
 }
 
 export function RecordsTableRow({
@@ -22,7 +23,7 @@ export function RecordsTableRow({
 
       <td className="px-4 py-4 align-middle">
         <img
-          src={record.image.url}
+          src={record.image.url || "/src/assets/logo-default.png"}
           alt={record.image.alt}
           loading="lazy"
           className="h-12 w-16 rounded-lg border border-border object-cover"
@@ -52,7 +53,7 @@ export function RecordsTableRow({
       </td>
 
       <td className="px-4 py-4 align-middle text-sm text-text-muted">
-        {formatRecordDate(record.created_at)}
+        {formatRecordDate(record.createdAt)}
       </td>
 
       <td className="px-4 py-4 align-middle">

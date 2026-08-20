@@ -1,19 +1,18 @@
-import type { RecordItem } from "../../types/record.types";
-import { RecordsTableRow } from "./RecordTableRow";
+import type { RecordModel } from "../../api/model/record.model";
 import { RecordMobileCard } from "./RecordMobileCard";
+import { RecordsTableRow } from "./RecordTableRow";
 
 interface RecordsTableProps {
-  records: RecordItem[];
-  onEdit: (record: RecordItem) => void;
-  onDelete: (record: RecordItem) => void;
+  records: RecordModel[];
+  onEdit: (record: RecordModel) => void;
+  onDelete: (record: RecordModel) => void;
 }
-
 const COLUMNS = [
   { label: "شناسه", className: "w-20" },
   { label: "تصویر", className: "w-24" },
   { label: "عنوان", className: "min-w-48" },
   { label: "توضیحات", className: "min-w-72" },
-  { label: "وضعیت", className: "w-28" },
+  { label: "وضعیت", className: "w-36" },
   { label: "تاریخ ایجاد", className: "w-36" },
   { label: "عملیات", className: "w-32" },
 ] as const;

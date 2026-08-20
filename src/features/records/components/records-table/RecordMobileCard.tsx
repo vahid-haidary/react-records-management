@@ -1,12 +1,12 @@
-import type { RecordItem } from "../../types/record.types";
+import type { RecordModel } from "../../api/model/record.model";
 import { formatRecordDate } from "../../utils/format-record-date";
 import { RecordActions } from "./RecordActions";
 import { RecordStatusBadge } from "./RecordStatusBadge";
 
 interface RecordMobileCardProps {
-  record: RecordItem;
-  onEdit: (record: RecordItem) => void;
-  onDelete: (record: RecordItem) => void;
+  record: RecordModel;
+  onEdit: (record: RecordModel) => void;
+  onDelete: (record: RecordModel) => void;
 }
 
 export function RecordMobileCard({
@@ -18,12 +18,14 @@ export function RecordMobileCard({
     <article className="rounded-xl border border-border bg-surface p-4 shadow-sm md:hidden">
       <div className="mb-4 flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-center gap-3">
-          <img
-            src={record.image.url}
-            alt={record.image.alt}
-            loading="lazy"
-            className="h-14 w-20 shrink-0 rounded-lg border border-border object-cover"
-          />
+          <div className="h-14 w-20 shrink-0 overflow-hidden rounded-lg border border-border">
+            <img
+              src={record.image.url}
+              alt={record.image.alt}
+              loading="lazy"
+              className="block h-full w-full object-cover"
+            />
+          </div>
 
           <div className="min-w-0">
             <p className="mb-1 text-xs text-text-muted">شناسه #{record.id}</p>
@@ -55,7 +57,7 @@ export function RecordMobileCard({
         <span className="text-xs text-text-muted">تاریخ ایجاد</span>
 
         <span className="text-xs font-medium text-text">
-          {formatRecordDate(record.created_at)}
+          {formatRecordDate(record.createdAt)}
         </span>
       </div>
 
