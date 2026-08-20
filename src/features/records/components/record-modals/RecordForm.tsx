@@ -4,6 +4,7 @@ import {
   recordFormSchema,
   type RecordFormSchema,
 } from "../../schemas/record-form.schema";
+import { RECORD_DESCRIPTION_MAX_LENGTH } from "../../constants/records.constants";
 
 interface StatusOption {
   key: string;
@@ -93,7 +94,7 @@ export function RecordForm({
 
           <span className="text-xs text-text-muted">
             {descriptionLength.toLocaleString("fa-IR")}/
-            {(255).toLocaleString("fa-IR")}
+            {RECORD_DESCRIPTION_MAX_LENGTH.toLocaleString("fa-IR")}
           </span>
         </div>
 
@@ -102,7 +103,7 @@ export function RecordForm({
           {...register("description")}
           disabled={isSubmitting}
           rows={4}
-          maxLength={255}
+          maxLength={RECORD_DESCRIPTION_MAX_LENGTH}
           placeholder="توضیحات رکورد را وارد کنید"
           className="w-full resize-none rounded-lg border hide-scrollbar border-border bg-background px-3 py-2.5 text-sm leading-6 text-text outline-none transition-colors placeholder:text-text-muted focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
         />

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { RECORD_DESCRIPTION_MAX_LENGTH } from "../constants/records.constants";
 
 export const recordFormSchema = z.object({
   title: z.string().trim().min(1, "عنوان الزامی است"),
@@ -6,7 +7,10 @@ export const recordFormSchema = z.object({
   description: z
     .string()
     .trim()
-    .max(255, "توضیحات نباید بیشتر از ۲۵۵ کاراکتر باشد")
+    .max(
+      RECORD_DESCRIPTION_MAX_LENGTH,
+      `توضیحات نمی‌تواند بیشتر از ${RECORD_DESCRIPTION_MAX_LENGTH} کاراکتر باشد`,
+    )
     .optional()
     .or(z.literal("")),
 
