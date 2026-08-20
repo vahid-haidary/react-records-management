@@ -1,4 +1,5 @@
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useId, type ReactNode } from "react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 interface ModalProps {
   open: boolean;
@@ -8,8 +9,12 @@ interface ModalProps {
 }
 
 export function Modal({ open, title, children, onClose }: ModalProps) {
+  const titleId = useId();
+
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      return;
+    }
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -33,16 +38,16 @@ export function Modal({ open, title, children, onClose }: ModalProps) {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
       role="dialog"
       aria-modal="true"
-      aria-labelledby="modal-title"
+      aria-labelledby={titleId}
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) {
           onClose();
         }
       }}
     >
-      <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow-xl">
-        <div className="mb-5 flex items-center justify-between">
-          <h2 id="modal-title" className="text-lg font-semibold text-gray-900">
+      <div className="max-h-[90vh] hide-scrollbar w-full max-w-lg overflow-y-auto rounded-xl border border-border bg-surface p-5 shadow-xl sm:p-6">
+        <div className="mb-5 flex items-center justify-between gap-4">
+          <h2 id={titleId} className="text-lg font-semibold text-text">
             {title}
           </h2>
 
@@ -50,9 +55,9 @@ export function Modal({ open, title, children, onClose }: ModalProps) {
             type="button"
             onClick={onClose}
             aria-label="بستن"
-            className="rounded-md p-2 text-gray-500 hover:bg-gray-100"
+            className="shrink-0 rounded-lg p-2 text-text-muted transition-colors hover:bg-background hover:text-text"
           >
-            ×
+            <XMarkIcon className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
 
