@@ -4,6 +4,10 @@ import { RecordsPagination } from "@/features/records/components/records-paginat
 import { RecordsTable } from "@/features/records/components/records-table";
 import type { RecordItem } from "@/features/records/types/record.types";
 
+interface RecordsPageProps {
+  onDelete: (record: RecordItem) => void;
+}
+
 const recordsMock: RecordItem[] = [
   {
     id: 1,
@@ -32,26 +36,22 @@ const recordsMock: RecordItem[] = [
     },
     image: {
       url: "https://picsum.photos/seed/react-record-2/600/400",
-      alt: "تصوی گزارش فروش",
+      alt: "تصویر گزارش فروش",
     },
     created_at: "2026-07-02T05:30:00.000000Z",
     updated_at: "2026-07-02T14:17:29.052511Z",
   },
 ];
 
-export function RecordsPage() {
-  const handleEdit = (record: (typeof recordsMock)[number]) => {
+export function RecordsPage({ onDelete }: RecordsPageProps) {
+  const handleEdit = (record: RecordItem) => {
     console.log("Edit:", record);
   };
 
-  const handleDelete = (record: (typeof recordsMock)[number]) => {
-    console.log("Delete:", record);
-  };
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <RecordsPageHeader totalRecords={50} />
+      <RecordsPageHeader totalRecords={recordsMock.length} />
 
-      {/* filter sec */}
       <RecordsFilters
         search=""
         status=""
@@ -59,18 +59,17 @@ export function RecordsPage() {
         onStatusChange={() => {}}
         onClear={() => {}}
       />
-      {/* records sec */}
+
       <RecordsTable
         records={recordsMock}
         onEdit={handleEdit}
-        onDelete={handleDelete}
+        onDelete={onDelete}
       />
 
-      {/* pagination sec */}
       <RecordsPagination
         currentPage={1}
-        totalPages={10}
-        totalRecords={97}
+        totalPages={1}
+        totalRecords={recordsMock.length}
         pageSize={10}
         pageSizeOptions={[5, 10, 20]}
         onPageChange={() => {}}
