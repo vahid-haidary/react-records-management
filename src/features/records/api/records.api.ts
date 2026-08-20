@@ -1,10 +1,11 @@
-import { axiosClient } from "@/shared/api/api-client";
-import type { RecordsResponse } from "../types/record.types";
 import { ENDPOINTS } from "@/shared/api/api-endpoints";
+import { axiosClient } from "@/shared/api/api-client";
+
+import type { RecordsApiResponse } from "./type/records.types";
 
 export const RecordsApi = {
-  getAll: async (): Promise<RecordsResponse> => {
-    const { data } = await axiosClient.get<RecordsResponse>(
+  getAll: async (): Promise<RecordsApiResponse> => {
+    const { data } = await axiosClient.get<RecordsApiResponse>(
       ENDPOINTS.records.getAll,
     );
 
