@@ -9,18 +9,14 @@ import { Select } from "@/shared/ui/select";
 import { Textarea } from "@/shared/ui/textarea";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
-
-interface StatusOption {
-  key: string;
-  label: string;
-}
+import type { FilterOptionModel } from "../../api/adapter/records.adapter";
 
 export interface RecordFormProps {
   onSubmit: (values: RecordFormSchema) => void | Promise<void>;
   onCancel: () => void;
   isSubmitting?: boolean;
   initialValues?: Partial<RecordFormSchema>;
-  statusOptions: StatusOption[];
+  statusOptions: FilterOptionModel[];
 }
 
 const DEFAULT_VALUES: RecordFormSchema = {

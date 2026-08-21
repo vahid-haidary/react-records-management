@@ -1,8 +1,8 @@
 import type { RecordModel } from "../../api/model/record.model";
 import { formatRecordDate } from "../../utils/format-record-date";
 import { RecordActions } from "./RecordActions";
+import { RecordImage } from "./RecordImage";
 import { RecordStatusBadge } from "./RecordStatusBadge";
-import logoDefault from "@/assets/logo-default.png";
 
 interface RecordsTableRowProps {
   record: RecordModel;
@@ -22,12 +22,9 @@ export function RecordsTableRow({
       </td>
 
       <td className="px-4 py-4 align-middle">
-        <img
-          src={record.image.url || logoDefault}
-          alt={record.image.alt || "تصویر پیش‌ فرض"}
-          loading="lazy"
-          className="h-12 w-16 rounded-lg border border-border object-cover"
-        />
+        <div className="h-12 w-16 shrink-0 overflow-hidden rounded-lg border border-border">
+          <RecordImage src={record.image.url} alt={record.image.alt} />
+        </div>
       </td>
 
       <td className="px-4 py-4 align-middle">

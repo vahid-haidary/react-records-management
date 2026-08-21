@@ -4,23 +4,23 @@ interface RecordStatusBadgeProps {
   record: RecordModel;
 }
 
-export function RecordStatusBadge({ record }: RecordStatusBadgeProps) {
-  const statusStyles = {
-    active: {
-      badge: "bg-success/10 text-success",
-      dot: "bg-success",
-    },
-    inactive: {
-      badge: "bg-danger/10 text-danger",
-      dot: "bg-danger",
-    },
-    pending: {
-      badge: "bg-warning/10 text-warning",
-      dot: "bg-warning",
-    },
-  } as const;
+const STATUS_STYLES = {
+  active: {
+    badge: "bg-success/10 text-success",
+    dot: "bg-success",
+  },
+  inactive: {
+    badge: "bg-danger/10 text-danger",
+    dot: "bg-danger",
+  },
+  pending: {
+    badge: "bg-warning/10 text-warning",
+    dot: "bg-warning",
+  },
+} as const;
 
-  const styles = statusStyles[record.status.key];
+export function RecordStatusBadge({ record }: RecordStatusBadgeProps) {
+  const styles = STATUS_STYLES[record.status.key] ?? STATUS_STYLES.pending;
 
   return (
     <span

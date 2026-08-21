@@ -10,8 +10,8 @@ export function RecordsPagination({
   onPageChange,
   onPageSizeChange,
 }: PaginationProps) {
-  const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === totalPages;
+  const isFirstPage = currentPage <= 1;
+  const isLastPage = currentPage >= totalPages;
 
   return (
     <div className="border-t border-border bg-surface p-4">
@@ -60,12 +60,12 @@ export function RecordsPagination({
               <ChevronRightIcon className="h-4 w-4" />
             </button>
 
-            <span className="whitespace-nowrap text-sm text-text-muted">
-              صفحه{" "}
+            <span className="flex items-center gap-1 whitespace-nowrap text-sm text-text-muted">
+              صفحه
               <span className="font-semibold text-text">
                 {currentPage.toLocaleString("fa-IR")}
-              </span>{" "}
-              از{" "}
+              </span>
+              از
               <span className="font-semibold text-text">
                 {totalPages.toLocaleString("fa-IR")}
               </span>
