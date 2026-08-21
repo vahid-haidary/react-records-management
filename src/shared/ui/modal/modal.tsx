@@ -1,4 +1,5 @@
 import { useEffect, useId, type ReactNode } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Button } from "../button";
 
@@ -35,41 +36,72 @@ export function Modal({ open, title, children, onClose }: ModalProps) {
     };
   }, [open, onClose]);
 
-  if (!open) {
-    return null;
-  }
-
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby={titleId}
-      onMouseDown={(event) => {
-        if (event.target === event.currentTarget) {
-          onClose();
-        }
-      }}
-    >
-      <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl border border-border bg-surface p-5 shadow-xl hide-scrollbar sm:p-6">
-        <div className="mb-5 flex items-center justify-between gap-4">
-          <h2 id={titleId} className="text-lg font-semibold text-text">
-            {title}
-          </h2>
-
-          <Button
-            type="button"
-            variant="ghost"
-            onClick={onClose}
-            aria-label="بستن"
-            className="shrink-0 rounded-lg p-2 text-text-muted transition-colors hover:bg-background hover:text-text"
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={titleId}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{
+            duration: 0.2,
+            ease: "easeOut",
+          }}
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              onClose();
+            }
+          }}
+        >
+          <motion.div
+            className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl border border-border bg-surface p-5 shadow-xl hide-scrollbar sm:p-6"
+            initial={{
+              opacity: 0,
+              scale: 0.95,
+              y: 12,
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              scale: 0.95,
+              y: 12,
+            }}
+            transition={{
+              duration: 0.2,
+              ease: "easeOut",
+            }}
+            onMouseDown={(event) => {
+              event.stopPropagation();
+            }}
           >
-            <XMarkIcon className="h-5 w-5" />
-          </Button>
-        </div>
+            <div className="mb-5 flex items-center justify-between gap-4">
+              <h2 id={titleId} className="text-lg font-semibold text-text">
+                {title}
+              </h2>
 
-        {children}
-      </div>
-    </div>
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={onClose}
+                aria-label="بستن"
+                className="shrink-0 rounded-lg p-2 text-text-muted transition-colors hover:bg-background hover:text-text"
+              >
+                <XMarkIcon className="h-5 w-5" />
+              </Button>
+            </div>
+
+            {children}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
