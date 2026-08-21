@@ -17,7 +17,7 @@ export function RecordsPageHeader({ totalRecords }: RecordsPageHeaderProps) {
         </p>
       </div>
       <div className="flex items-center text-center gap-1 rounded-2xl px-3 py-1 md:text-lg text-xs font-medium bg-surface shadow-sm">
-        کل رکوردها:
+        رکوردها:
         <span className="text-3xl font-bold">
           {totalRecords.toLocaleString("fa-IR")}
         </span>
