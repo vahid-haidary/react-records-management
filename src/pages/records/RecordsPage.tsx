@@ -134,8 +134,11 @@ export function RecordsPage({
       ) : filteredRecords.length === 0 ? (
         <div className="rounded-xl border border-border bg-surface p-8 text-center">
           <p className="mb-4 text-sm text-text-muted">
-            برای شما رکوردی مطابق فیلترهای انتخاب‌ شده پیدا نشد.
+            رکوردی مطابق فیلترهای انتخاب‌شده پیدا نشد.
           </p>
+          <Button type="button" variant="secondary" onClick={clearFilters}>
+            پاک کردن فیلترها
+          </Button>
         </div>
       ) : (
         <>

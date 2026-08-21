@@ -21,7 +21,7 @@ export function RecordsFilters({
   onStatusChange,
   onClear,
 }: RecordsFiltersProps) {
-  const hasActiveFilters = Boolean(search || status);
+  const hasActiveFilters = search.trim().length > 0 || status.trim().length > 0;
 
   return (
     <section className="mb-6 rounded-xl border border-border bg-surface p-4 sm:p-5">

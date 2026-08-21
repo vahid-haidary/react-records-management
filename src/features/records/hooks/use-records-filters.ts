@@ -1,12 +1,13 @@
 import { useMemo, useState } from "react";
 import type { RecordModel } from "@/features/records/api/model/record.model";
 import { useDebouncedValue } from "@/shared/hooks/use-debounced-value";
+import { RECORD_SEARCH_DEBOUNCE_MS } from "../constants/records.constants";
 
 export function useRecordsFilters(records: RecordModel[]) {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("");
 
-  const debouncedSearch = useDebouncedValue(search, 300);
+  const debouncedSearch = useDebouncedValue(search, RECORD_SEARCH_DEBOUNCE_MS);
 
   const filteredRecords = useMemo(() => {
     const normalizedSearch = debouncedSearch.trim().toLowerCase();
@@ -35,6 +36,5 @@ export function useRecordsFilters(records: RecordModel[]) {
     setStatus,
     filteredRecords,
     clearFilters,
-    hasActiveFilters: Boolean(search || status),
   };
 }

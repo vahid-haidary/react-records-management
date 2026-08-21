@@ -7,3 +7,5 @@ export const DEFAULT_RECORDS_PAGE = 1;
 export const RECORD_DESCRIPTION_MAX_LENGTH = 255;
 
 export const SKELETON_ROWS = 5;
+
+export const RECORD_SEARCH_DEBOUNCE_MS = 300;
