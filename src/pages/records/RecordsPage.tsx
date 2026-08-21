@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { RecordsFilters } from "@/features/records/components/records-filters";
 import { RecordsPageHeader } from "@/features/records/components/records-page-header";
@@ -28,6 +28,7 @@ export function RecordsPage({
   onCloseCreateModal,
 }: RecordsPageProps) {
   const { data, isLoading, isError, refetch } = useRecords();
+  const recordsTopRef = useRef<HTMLDivElement>(null);
 
   const records = data?.records ?? [];
   const filters = data?.filters ?? [];
@@ -60,6 +61,13 @@ export function RecordsPage({
     () => paginate(filteredRecords),
     [filteredRecords, paginate],
   );
+
+  useEffect(() => {
+    recordsTopRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, [currentPage]);
 
   const { createRecord, editRecord, deleteRecord } = useRecordMutations();
 
@@ -105,6 +113,7 @@ export function RecordsPage({
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <RecordsPageHeader totalRecords={records.length} />
+      <div ref={recordsTopRef} />
 
       <RecordsFilters
         search={search}
