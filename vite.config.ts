@@ -5,6 +5,7 @@ import path from "node:path";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  base: "/react-records-management/",
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "./src"),

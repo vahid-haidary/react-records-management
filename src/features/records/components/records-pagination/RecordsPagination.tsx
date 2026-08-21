@@ -1,5 +1,10 @@
+import { Select } from "@/shared/ui/select";
 import type { PaginationProps } from "../../types/pagination.types";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import {
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/24/outline";
 
 export function RecordsPagination({
   currentPage,
@@ -34,18 +39,26 @@ export function RecordsPagination({
               نمایش در هر صفحه
             </label>
 
-            <select
-              id="page-size"
-              value={pageSize}
-              onChange={(event) => onPageSizeChange(Number(event.target.value))}
-              className="h-9 rounded-lg border border-border bg-background px-2.5 text-sm text-text outline-none focus:border-primary"
-            >
-              {pageSizeOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option.toLocaleString("fa-IR")}
-                </option>
-              ))}
-            </select>
+            <div className="relative w-auto">
+              <Select
+                id="page-size"
+                value={String(pageSize)}
+                onChange={(event) =>
+                  onPageSizeChange(Number(event.target.value))
+                }
+                options={pageSizeOptions.map((option) => ({
+                  value: String(option),
+                  label: option.toLocaleString("fa-IR"),
+                }))}
+                className="h-9 w-auto min-w-10 px-2.5 pl-7 text-center"
+              />
+
+              <ChevronDownIcon
+                width={10}
+                height={10}
+                className="pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-text-muted"
+              />
+            </div>
           </div>
 
           {/* pagination */}

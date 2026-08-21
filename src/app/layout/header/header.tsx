@@ -22,12 +22,15 @@ export function Header({ onCreateRecord }: HeaderProps) {
         </div>
 
         <Button
-          className="flex shrink-0 items-center gap-2"
+          variant="create"
+          className="flex shrink-0 items-center gap-2 "
           onClick={onCreateRecord}
         >
-          <span className="hidden sm:inline">ایجاد رکورد جدید</span>
-          <span className="sm:hidden">ایجاد رکورد</span>
-          <CiCirclePlus size={22} />
+          <span className="hidden sm:inline font-semibold">
+            ایجاد رکورد جدید
+          </span>
+          <span className="sm:hidden font-semibold">ایجاد رکورد</span>
+          <CiCirclePlus size={22} style={{ strokeWidth: 1 }} />
         </Button>
       </div>
     </header>
